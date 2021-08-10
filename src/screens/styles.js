@@ -71,6 +71,7 @@ form:{
    borderBottomColor:'#05375a',
    flexDirection: 'row',
    marginTop:10,
+   justifyContent:'space-between',
 
 },
 textInput: {

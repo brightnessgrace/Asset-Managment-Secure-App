@@ -38,7 +38,7 @@ const ResetPassword = () =>{
                          
 
                 <View>
-                   <Dropdown style={styles.dropdown}
+                   <Dropdown style={[styles.dropdown, {marginTop:20}]}
                     label='What was Your Secreat Question?'
                     icon='chevron-down'
                     iconColor='#E1E1E1'

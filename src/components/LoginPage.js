@@ -14,6 +14,45 @@ import SignUpscreen from '../screens/SignUpscreen';
 
 const Login = ({navigation}) => {
 
+    const [data, setData] = React.useState({
+        username: '',
+        password: '',
+        check_textInputChange: false,
+        secureTextEntry: true,
+        confirm_secureTextEntry: true,
+    });
+
+    const textInputChange = (val) => {
+        if( val.length !== 0 ) {
+            setData({
+                ...data,
+                username: val,
+                check_textInputChange: true
+            });
+        } else {
+            setData({
+                ...data,
+                username: val,
+                check_textInputChange: false
+            });
+        }
+    }
+
+    const handlePasswordChange = (val) => {
+        setData({
+            ...data,
+            password: val
+        });
+    }
+
+    const updateSecureTextEntry = () => {
+        setData({
+            ...data,
+            secureTextEntry: !data.secureTextEntry
+        });
+    }
+
+
   return(
      
       <LinearGradient 
@@ -31,34 +70,51 @@ const Login = ({navigation}) => {
 
                         <View style={styles.form}>
 
-                            <TextInput
+                        <TextInput
                             placeholder="Username/Email"
                             placeholderTextColor="#05375a"
                             style={styles.textinput}
-                            autoCapitalize="none"/> 
-                             <View style={styles.icon}>
+                            autoCapitalize="none"
+                            onChangeText={(val) => textInputChange(val)}/> 
+
+                        {data.check_textInputChange ?
+                        <Animatable.View animation="bounceIn" style={styles.icon}>
                                     <Feather 
                                     name = "check-circle"
                                     color = "#05375a"
                                     size={20}/>
-                              </View>
+                              </Animatable.View>
+                              : null}
 
                           </View>
 
                           <View style={styles.form}>
                              <TextInput
                             placeholder="Password"
+                            secureTextEntry={data.secureTextEntry ? true : false}
                             placeholderTextColor="#05375a"
                             style={styles.textinput}
-                            autoCapitalize="none"/> 
+                            autoCapitalize="none"
+                            onChangeText={(val) => handlePasswordChange(val)}/> 
                              
                           
                              <View style={styles.icon}> 
+                              <TouchableOpacity  onPress={updateSecureTextEntry}>
+
+                               {data.secureTextEntry ?    
                                 <Feather 
                               name = "eye-off"
                               color = "#05375a"
                               size={20}/> 
-                             </View>
+                              :
+                              <Feather 
+                                  name="eye"
+                                  color="#05375a"
+                                  size={20}
+                              />
+                              }
+                              </TouchableOpacity>
+                             </View> 
                           </View>
                           <View style={styles.button}>
                           <TouchableOpacity onPress = {()=> navigation.navigate('Profile')}> 
