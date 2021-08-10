@@ -41,6 +41,16 @@ form:{
     justifyContent:'center',
   
 },
+textlink:{
+    color: '#05375a',
+  
+},
+link:{
+    flexDirection: 'row',
+    justifyContent:'space-between',
+    marginTop:10,
+    
+},
 textInput: {
     flex: 1,
     paddingLeft: 10,

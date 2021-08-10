@@ -9,6 +9,8 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import styles from './styles';
 import Navigation from '../components/navigation';
 import Feather from 'react-native-vector-icons/Feather';
+import ResetPassword from './ResetPassword';
+import SignUpscreen from '../screens/SignUpscreen';
 
 const Login = ({navigation}) => {
 
@@ -66,7 +68,16 @@ const Login = ({navigation}) => {
                           </LinearGradient>
                           </TouchableOpacity>
                         </View>
-
+                      <View style={styles.link}>
+                         
+                         <TouchableOpacity onPress = {()=> navigation.navigate('ResetPassword')}>
+                        <Text style = {styles.textlink}>Forgot Your Password?</Text> 
+                        </TouchableOpacity>
+                       
+                        <TouchableOpacity onPress = {()=> navigation.navigate('SignUpscreen')}>
+                        <Text style = {styles.textlink}> Register </Text>
+                        </TouchableOpacity>
+                        </View>
 
                    </Animatable.View>
 
@@ -87,7 +98,8 @@ const Navtabs =()=>{
       <Stack.Navigator  initialRouteName="Home">
           <Stack.Screen name ="Home" component={Login} options={{ headerShown: false }}/>
           <Stack.Screen name ="Profile" component={Navigation} options={{ headerShown: false }}/>
-                   
+          <Stack.Screen name = "ResetPassword" component={ResetPassword} options={{ headerShown: false }}/>
+          <Stack.Screen name =" SignUpscreen" component={SignUpscreen} options={{ headerShown: false }}/>
       </Stack.Navigator>
 
     )
