@@ -1,27 +1,20 @@
 import React from 'react';
 import { View, Text, Image, SafeAreaView,
-    StyleSheet } from 'react-native';
+    StyleSheet,TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Profile  from '../Profile';
-import Icon from 'react-native-vector-icons/AntDesign'
-import Feather from 'react-native-vector-icons/Feather';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Explore  from '../Explore';
 const logo =  require('../../../assets/image/amsa.jpeg');
 
 
-function CustomHeader()  {
+const CustomHeader = ({navigation}) =>  {
   return (
 
     <SafeAreaView style ={styles.container} >
-    <View style={styles.subcontainer}>
-    <Image resizeMode="contain"  style={styles.imagecontainer} source={logo} />
-      <View style={{flexDirection: 'row', width: 150,  justifyContent: 'space-between'}}>
-          
-          <Icon name="bells" size={28} color="#05375a" />
-          <Icon name="search1" size={28} color="#05375a" />
-          <FontAwesome name="user-circle-o" size={28} color="#05375a" />
-        </View>
+       <View style={styles.subcontainer}>
+       
+    
        </View> 
+                    
     </SafeAreaView>    
   );
 
@@ -31,16 +24,9 @@ const HomeStack = createStackNavigator();
 
 function HomeStackComponent() {
   return (
-    <HomeStack.Navigator 
-        screenOptions={{
-        header: () => <CustomHeader />,
-      }}>
+    <HomeStack.Navigator >
       <HomeStack.Screen
-        name="TabOneScreen"
-        component={Profile}
-        options = {{ headerTitle: 'Tab One Title' }}
-      />
-      
+        name="TabOneScreen" component={Explore}  options = {{ headerShown: false}} />     
     </HomeStack.Navigator>
   );
 }

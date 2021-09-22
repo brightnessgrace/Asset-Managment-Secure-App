@@ -77,6 +77,8 @@ imgcontainer:{
     height:230,
     marginTop:5
         
+}, menubar:{
+    width:'40%'
 }
 });
 
