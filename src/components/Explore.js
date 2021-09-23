@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View,Text,Image,Dimensions,SafeAreaView,
-        TouchableOpacity,StyleSheet,Modal,FlatList } from 'react-native';
+        TouchableOpacity,StyleSheet,Modal,FlatList, SectionList } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -11,15 +11,16 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Barcategories from './Barcategories';
 import Library from './Library';
 import Assets from './Insideprofile/Assets';
-
+import { Component } from 'react';
 
 
 const Item = ({ img }) => (
 
 
   <View>
+     
      <Text> {Assets.title}</Text>
-     <Image style={styles.uploads}
+      <Image style={styles.uploads}
        
        source={img}
      />
@@ -29,249 +30,197 @@ const Item = ({ img }) => (
   </View>
 );
 
-const Menuexplore = ({navigation}) =>{
+// determine number of full rows to display
+const formatData =(data,numColumns) => {
 
-    const [modalOpen, setModalOpen] = useState(false);
-    const [tabOpen, setTabOpen] = useState(false);
-   
-   
-  const renderItem = ({item}) => (
+  const numberofFulRows = Math.floor(data.length /numColumns);
+  // determine the number of elements actualy exist in the last row
+
+  let numberOfElementsLastRow = data.length - (numberofFulRows * numColumns);
+  while (numberOfElementsLastRow !== numColumns &&  numberOfElementsLastRow !== 0) {
+    // determine the number of full rows
+    data.push({ key:  `blank-${numberOfElementsLastRow}`, empty:true });
+    numberOfElementsLastRow = numberOfElementsLastRow + 1;
+  }
+  return data;
+};
+
+
+
+const numColumns = 3;
+
+
+export default class Explore extends Component {
+
+
+
+   renderItems = ({item}) => {
+    // IF NOTHINH TO RETURN THEN INVISIBLE
     
+    if (item.empty === true) {
+      return <View style={[styles.item, styles.itemInvisible]} />;
+    }
 
-    <Item img={item.img} />
+    return (
+      <View style={styles.item}>
  
-   );
-
-    return(
+        <Image style={styles.itemstyle} 
        
-        <LinearGradient
-          colors={['#E0FFFF','#87CEFA']}
-            style={styles.container}  > 
-           
-                  
-               <Modal visible={modalOpen} 
-                     animationType='slide' 
-                     transparent={true}>
+           source={item.img}
+        />
+       </View>
+      );
 
-                          <TouchableOpacity  onPressOut={() => setModalOpen(false)}>  
-              
-                <LinearGradient
-                       colors={['#E0FFFF','#87CEFA']} 
-                       style={styles.modalView}>
-                    <View style={styles.headstyle}>
-                        
-                            <View style={styles.list}> 
-                            <FontAwesome5  name = "laptop-house" color= "#05375a" size={20} /> 
-                            <Text> Current Asset </Text> 
-                            </View>
+ 
+      };
+render() {
+  return(
 
-                            <View style={styles.list}> 
-                            <FontAwesome5  name = "laptop-house" color= "#05375a" size={20} /> 
-                            <Text> Non Current Asset </Text> 
-                            </View>
-
-                            <View style={styles.list}> 
-                            <FontAwesome5  name = "user-edit" color= "#05375a" size={20} /> 
-                            <Text> Edit Profile </Text> 
-                            </View>
-                    </View>
-
-                  
-                    </LinearGradient>
-                    </TouchableOpacity> 
-                </Modal>
-           
-               
-                <Modal visible={tabOpen} 
-                     animationType='slide' 
-                     transparent={true}>
-
-                  <TouchableOpacity  onPressOut={() => setTabOpen(false)}>         
-                        <LinearGradient
-                            colors={['#E0FFFF','#87CEFA']} 
-                            style={styles.tabone}>
-                             <SafeAreaView >
-                                <FlatList
-                                  data={Assets}
-                                  renderItem={renderItem}
-                                  keyExtractor={item => item.id}
-                                />
-                              </SafeAreaView>
-                            </LinearGradient>
-
-                            </TouchableOpacity>   
-                </Modal>
-              
-
-      <View style={styles.dp}>    
-        <EvilIcons name="user" size={100} color="#808080" />
-       </View> 
-
-            <View style={styles.subcontainer}> 
-                        
-                                <AntDesign 
-                                  name = "bars"
-                                  color = "#333"
-                                  size={35} 
-                                  onPress={() => setModalOpen(true)}
-                                />
-
-                  <View style={{flexDirection: 'row', width: 80,  justifyContent: 'space-between'}}>
-                
-                      <AntDesign name="bells" size={28} color="05375a" />
-                      <AntDesign name="search1" size={28} color="#05375a" />
-                    
-                  </View>
-
-            </View>
+    <LinearGradient colors={['#E0FFFF','#87CEFA']} style={styles.container}  > 
+      
+      <View style={styles.header}>
+          
+      
+       <View style={styles.sidebar}> 
+                <AntDesign name = "bars" color = "#333" size={40} />                
+           </View>
 
             
-                    <View
-                            style={{
-                              marginTop:10,
-                              borderBottomColor: '#05375a',
-                              borderBottomWidth: 0.8,
-                            }}
-                            />
-                    <View style={styles.bottomlist}>
 
-                     
-                <MaterialIcons name="my-library-books" color={'#05375a'} size={28}  onPress={() => setTabOpen(true)}/>   
-                <Ionicons name="pricetags-outline" color={'#05375a'} size={28}   onPress={() => setTabOpen(true)}/>
-                <AntDesign name="folderopen" size={28} color="#05375a" onPress={() => setTabOpen(true)}/>
-                <AntDesign name="folder1" size={28} color="#05375a" onPress={() => setTabOpen(true)}/>
-                  
-                      </View> 
+           <View style={styles.usernav}>   
+             <EvilIcons name="user" size={140} color="#808080" />
+          </View>
 
-                          <View
-                            style={{
-                              marginTop:10,
-                              borderBottomColor: '#05375a',
-                              borderBottomWidth: 0.8,
-                            }}
-                            />       
+          <View style={styles.leftbar}>
+                
+                <AntDesign name="bells" size={35} color="#333" style={{paddingRight:'5%'}}/>
+                   <AntDesign name="search1" size={35} color="#333" />
+           
+        </View> 
 
-                         </LinearGradient>
-                        
-                         );
+       </View>
+        
+        <View style={styles.navcontainer}>
 
-}
+              <View style={styles.middlebar}>
+                <MaterialIcons name="my-library-books" color={'#05375a'} size={35} onPress={() => setTabOpen(true)}/>   
+                <Ionicons name="pricetags-outline" color={'#05375a'} size={35} onPress={() => setTabOpen(true)}/>
+                <AntDesign name="folderopen" size={35} color="#05375a" onPress={() => setTabOpen(true)}/>
+                <AntDesign name="folder1" size={35} color="#05375a" onPress={() => setTabOpen(true)}/>
+              </View>
+             
+      </View>
 
-
-
-const Tab = createStackNavigator();
-
-const Navtabs =()=>{
-    return (
-      
-      <Tab.Navigator  initialRouteName="Home">
-          <Tab.Screen name ="Home" component={Menuexplore} options={{ headerShown: false }}/>
-          <Tab.Screen name ="Menubar" component={Barcategories} options={{ headerShown: false }}/>
-          <Tab.Screen name ="Library" component={Library} options={{ headerShown: false }}/>
+      <View style={styles.lowercontainer}>
          
-      </Tab.Navigator>
-
-    )
-  }
-
-  export default function Explore () {
-    return(
-
-    <Navtabs /> 
-    )
-
-   };
+              <SafeAreaView>
+                
+                <FlatList 
+                   data={formatData(Assets, numColumns)}
+                   style={styles.ftcontainer}
+                   renderItem={this.renderItems}
+                   numColumns={numColumns}
+                 />
    
+              </SafeAreaView>
+           
+      </View>
+       
+
+   </LinearGradient>
+
+   
+  );
+  
+
+  }
+};
+
+
+
 const {width, height} = Dimensions.get("window")
 
 const styles = StyleSheet.create({
-    container: {
-      backgroundColor:'#F5F5F5',
-      flex:1,
-          
-     },
-     subcontainer:{
-         
-            flexDirection:'row',
-            justifyContent:'space-between',
-            alignItems:'center',
-     },
-     dp:{
+
+  container: {
+    backgroundColor:'red',
+    flex:1,
         
-       alignItems:'center',
-       marginTop:5,
-     
-      },
-
-      imgcontainer:{
-        resizeMode:'contain',
-        maxWidth: width*0.5,
-        marginTop:-210,
-
-      },
-   
-
-      scrollView:{
-        flexDirection:'row',
-        flex: 1, 
-        alignSelf: 'stretch', 
+   },
+   header:{
+     flex:2.5, 
+     flexDirection:'row',  
     
-
-      },
-
-     lable:{
-        color: '#696969',
-        fontSize: 20,
-        fontWeight: 'bold',
-        justifyContent:'center',
-     },
-    list:{
-          marginTop:30,
-          marginLeft:20,
-          flexDirection:'row',
-     
-
-     },
-
-     bottomlist:{
-      marginTop:10,
-      marginLeft:20,
-      justifyContent: 'space-between',
-      flexDirection:'row',
+   },
  
-     },
-     modalView: {
-
-    
-        height:'100%',
-        marginTop:55,
-        width:'80%',
-        borderTopRightRadius: 20,
-        alignItems: "flex-start",
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },},
-
-    tabone:{
+   navcontainer: {
+    borderWidth:0.5,
+    borderColor:'#333',
+    flex:1,      
+   },
+   lowercontainer:{
      
-        height:'65%',
-        marginTop:'44%',
-        width:'100%',
-        alignItems: "flex-start",
-        flexDirection:"row",
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        }, },
-        
-        uploads:{
-          width:width*0.25,
-          height:width*0.24,
-          marginLeft:2,
-          marginTop:'-17%',
-         
-       }
+      flex:5,
+
+     
+   },
+   sidebar:{
+
+    alignItems:'flex-start',
+    justifyContent:'center',
+    
+  
+   },
+   usernav:{
+    justifyContent:'center',
+    alignItems:'center',
+    marginLeft:'22%',
+    marginTop:-25, 
+
+   },
+     leftbar:{
+  
+      alignItems:'center',
+      flexDirection:'row',
+      marginLeft:'10%',
+
+     },
+    middlebar:{
+     marginTop:'5%',
+     flexDirection:'row',
+     alignItems:'flex-start',
+     justifyContent:'space-between', 
+     borderBottomColor:'red',
+     paddingEnd:10,
+     paddingStart:10,
+    },
+  
+    ftcontainer:{
+      marginVertical: 20,
+      marginTop:2,
+    },
+    item: {
+      //backgroundColor: 'red',
+      alignItems: 'center',
+      justifyContent: 'center',
+      alignContent:'space-around',
+      flex: 1,
+      height: Dimensions.get('window').width / numColumns, // approximate a square
+      margin: 2,
+    },
+  
+    itemInvisible: {
+      backgroundColor: 'transparent',
+    },
+
+    itemstyle:{
+      //alignContent:'center',
+      marginBottom: 5,
+      marginRight: 10,
+      marginStart:5,
+      resizeMode:'cover',
+      width:130, 
+      height: Dimensions.get('window').width / numColumns
+    }
+
     });
