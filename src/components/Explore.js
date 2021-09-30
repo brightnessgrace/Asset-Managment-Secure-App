@@ -1,34 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState,Component } from 'react';
 import { View,Text,Image,Dimensions,SafeAreaView,
-        TouchableOpacity,StyleSheet,Modal,FlatList, SectionList } from 'react-native';
+        TouchableOpacity,StyleSheet,Modal,FlatList, SectionList,Pressable } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { createStackNavigator } from '@react-navigation/stack';
-import Barcategories from './Barcategories';
-import Library from './Library';
+
 import Assets from './Insideprofile/Assets';
-import { Component } from 'react';
 
 
-const Item = ({ img }) => (
 
 
-  <View>
-     
-     <Text> {Assets.title}</Text>
-      <Image style={styles.uploads}
-       
-       source={img}
-     />
- 
-    
-    
-  </View>
-);
 
 // determine number of full rows to display
 const formatData =(data,numColumns) => {
@@ -50,91 +34,106 @@ const formatData =(data,numColumns) => {
 const numColumns = 3;
 
 
-export default class Explore extends Component {
-
-
-
-   renderItems = ({item}) => {
-    // IF NOTHINH TO RETURN THEN INVISIBLE
-    
-    if (item.empty === true) {
-      return <View style={[styles.item, styles.itemInvisible]} />;
-    }
-
-    return (
-      <View style={styles.item}>
  
-        <Image style={styles.itemstyle} 
-       
-           source={item.img}
-        />
-       </View>
-      );
 
+export default function Explore() { 
  
-      };
-render() {
+  const [shouldShow, setshouldShow] = useState(true);
+
+  const Openasset = () => {
+
+        setshouldShow(false);
+     return (
+
+      <SafeAreaView>
+   
+
+             <FlatList 
+             data={formatData(Assets, numColumns)}
+             style={styles.ftcontainer}
+             renderItem = {({ item }) => ( <Image style={styles.itemstyle}  source={item.img} />)}
+             numColumns={numColumns}
+           />
+        
+          
+      </SafeAreaView>
+     )
+  }
+
+
   return(
 
-    <LinearGradient colors={['#E0FFFF','#87CEFA']} style={styles.container}  > 
+ 
+
+       <LinearGradient colors={['#E0FFFF','#87CEFA']} style={styles.container}  > 
       
-      <View style={styles.header}>
+         <View style={styles.header}>
           
       
-       <View style={styles.sidebar}> 
-                <AntDesign name = "bars" color = "#333" size={40} />                
-           </View>
+                <View style={styles.sidebar}> 
+                          <AntDesign name = "bars" color = "#333" size={40} />                
+                    </View>
 
             
 
-           <View style={styles.usernav}>   
-             <EvilIcons name="user" size={140} color="#808080" />
+                      <View style={styles.usernav}>   
+                        <EvilIcons name="user" size={140} color="#808080" />
+                      </View>
+
+                          <View style={styles.leftbar}>
+                                
+                                <AntDesign name="bells" size={35} color="#333" style={{paddingRight:'5%'}}/>
+                                  <AntDesign name="search1" size={35} color="#333" />
+                          
+                        </View> 
+
           </View>
-
-          <View style={styles.leftbar}>
-                
-                <AntDesign name="bells" size={35} color="#333" style={{paddingRight:'5%'}}/>
-                   <AntDesign name="search1" size={35} color="#333" />
-           
-        </View> 
-
-       </View>
         
-        <View style={styles.navcontainer}>
+            <View style={styles.navcontainer}>
 
-              <View style={styles.middlebar}>
-                <MaterialIcons name="my-library-books" color={'#05375a'} size={35} onPress={() => setTabOpen(true)}/>   
-                <Ionicons name="pricetags-outline" color={'#05375a'} size={35} onPress={() => setTabOpen(true)}/>
-                <AntDesign name="folderopen" size={35} color="#05375a" onPress={() => setTabOpen(true)}/>
-                <AntDesign name="folder1" size={35} color="#05375a" onPress={() => setTabOpen(true)}/>
-              </View>
-             
-      </View>
+                  <View style={styles.middlebar}>
+                    <MaterialIcons name="my-library-books" color={'#05375a'} size={35}  onPress={() => setshouldShow(true)}/>   
+              
+                    <Ionicons name="pricetags-outline" color={'#05375a'} size={35} onPress={() => { alert('hey you');}} />
+                    
+                    <AntDesign name="folderopen" size={35} color="#05375a" onPress={() => setshouldShow(false)}/>
+                    <AntDesign name="folder1" size={35} color="#05375a" onPress={() => Openasset}/>
+                  </View>
+                
+          </View>
 
       <View style={styles.lowercontainer}>
          
-              <SafeAreaView>
-                
-                <FlatList 
-                   data={formatData(Assets, numColumns)}
-                   style={styles.ftcontainer}
-                   renderItem={this.renderItems}
-                   numColumns={numColumns}
-                 />
-   
-              </SafeAreaView>
+               <SafeAreaView>
+               {
+                 shouldShow ? (
+
+                      <FlatList 
+                      data={formatData(Assets, numColumns)}
+                      style={styles.ftcontainer}
+                      renderItem = {({ item }) => ( <Image style={styles.itemstyle}  source={item.img} />)}
+                      numColumns={numColumns}
+                    />
+                 ) : null
+                    
+               }
+               </SafeAreaView>
+             
            
       </View>
        
 
-   </LinearGradient>
+     </LinearGradient>
+
 
    
   );
   
 
   }
-};
+
+
+
 
 
 
