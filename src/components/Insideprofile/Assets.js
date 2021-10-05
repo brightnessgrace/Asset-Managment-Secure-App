@@ -16,7 +16,7 @@ const Assets = [
     },
     {
       "id": "2",
-      "img" : require('../../../assets/data/images/ilazoone.jpeg'),
+      "img" : require('../../../assets/data/images/ilazooneb.jpeg'),
       "title": "Makole Plot"
     },
     {
@@ -26,7 +26,7 @@ const Assets = [
       
     },{
         "id": "4",
-        "img" : require('../../../assets/data/images/ilazooneb.jpeg'),
+        "img" : require('../../../assets/data/images/ilazooneb2.jpeg'),
         "title": "Nzuguni Plot"
         
       },

@@ -38,8 +38,8 @@ function Navigation() {
               <Icon name="pluscircleo" color={color} size={size} />
             ), }} />
 
-<Tab.Screen name="TabSixNavigator"  component={HomeStack}
-          options={{ tabBarLabel: 'Profile', tabBarIcon: ({ color, size }) => (
+        <Tab.Screen name="TabSixNavigator"  component={Profile}
+           options={{ tabBarLabel: 'Profile', tabBarIcon: ({ color, size }) => (
               <Icon name="user" color={color} size={size} />
             ), }} /> 
 

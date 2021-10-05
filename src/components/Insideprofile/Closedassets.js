@@ -8,54 +8,54 @@ const assetsix =  require('../../assets/data/images/kiasaoneb.jpeg');
 const assetfive =  require('../../assets/data/images/kisasaonec.jpeg');
 import styles from './styles';
 
-const Openasset = [
+const Closedasset = [
     {
-      "id": "2",
-      "img" : require('../../../assets/data/images/oatowna.jpeg'),
+      "id": "1",
+      "img" : require('../../../assets/data/images/ilazoone.jpeg'),
       "title": "Ilazo Plot"
     },
     {
-      "id": "1",
-      "img" : require('../../../assets/data/images/oatownb.jpeg'),
+      "id": "3",
+      "img" : require('../../../assets/data/images/oatown4.jpeg'),
       "title": "Makole Plot"
     },
     {
-      "id": "4",
-      "img" : require('../../../assets/data/images/oatownc.jpeg'),
+      "id": "2",
+      "img" : require('../../../assets/data/images/ilazooneb.jpeg'),
       "title": "Mlimwac Plot"
       
     },{
-        "id": "3",
-        "img" : require('../../../assets/data/images/oatown5.jpeg'),
+        "id": "4",
+        "img" : require('../../../assets/data/images/oatownb.jpeg'),
         "title": "Nzuguni Plot"
         
       },
       {
-        "id": "6",
+        "id": "5",
         "img" : require('../../../assets/data/images/oatown9.jpeg'),
         "title": "Kisasa Plot"
         
       },
       {
-        "id": "7",
+        "id": "6",
         "img" : require('../../../assets/data/images/oatown8.jpeg'),
         "title": "Ilazo Plot"
         
       },
       {
-        "id": "8",
+        "id": "7",
         "img" : require('../../../assets/data/images/oatown4.jpeg'),
         "title": "Ilazo Plot"
         
       },
       {
-        "id": "9",
+        "id": "8",
         "img" : require('../../../assets/data/images/oatown5.jpeg'),
         "title": "Ilazo Plot"
         
       },
       {
-        "id": "11",
+        "id": "9",
         "img" : require('../../../assets/data/images/oatown7.jpeg'),
         "title": "Ilazo Plot"
         
@@ -67,7 +67,7 @@ const Openasset = [
         
       },
       {
-        "id": "14",
+        "id": "11",
         "img" : require('../../../assets/data/images/oatown3.jpeg'),
         "title": "kikuyu Plot"
         
@@ -87,4 +87,4 @@ const Openasset = [
     
   ]
   
-export default Openasset;
+export default Closedasset;
